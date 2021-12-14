@@ -1,19 +1,23 @@
 package com.csse360.alphabetsoup;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 
 public class GameScreen implements Screen {
     final AlphabetSoup game;
 
     OrthographicCamera camera;
 
-    GameBoard gameBoard;
+    //GameBoard gameBoard = new GameBoard();
     Sound losingSound;
     Sound matchSound;
 
+    Texture gameBoardImg = new Texture(Gdx.files.internal("game-board.PNG"));
 
     public GameScreen(final AlphabetSoup game) {
         this.game = game;
@@ -26,7 +30,8 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
-        gameBoard.getBoard();
+        //gameBoard.print();
+
     }
 
     @Override
@@ -36,7 +41,20 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0,0,0.2f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        // Tells the camera to update its matrices
         camera.update();
+
+        game.batch.setProjectionMatrix(camera.combined);
+
+        game.batch.begin();
+        game.batch.draw(gameBoardImg, 125, 40, 579, 425);
+        //gameBoard.getBoard();
+        game.font.draw(game.batch, "Score: ", 0, 480);
+        game.batch.end();
+
     }
 
     @Override

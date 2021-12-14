@@ -1,8 +1,12 @@
 package com.csse360.alphabetsoup;
 
 public class GameBoard {
-    public GameTile[][] board;
-    int grids = 9;
+    private GameTile[][] board;
+    private final int startingTiles = 2;
+
+    public static final int ROWS = 9;
+    public static final int COLUMNS = 9;
+
     public int score = 0;
 
     /**
@@ -10,13 +14,11 @@ public class GameBoard {
      * Sets up a 9x9 board
      */
     public GameBoard() {
-        board = new GameTile[9][9]; // Creates the 9x9
+        board = new GameTile[ROWS][COLUMNS]; // Creates the 9x9
 
-        for(int i = 0; i < board.length; i++) {
-            for(int j = 0; i < board[i].length; j++) {
-                board[i][j] = new GameTile();
-            }
-        }
+        spawn();
+        spawn();
+
     }
 
     /**
@@ -59,5 +61,16 @@ public class GameBoard {
                 }
             }
         }
+    }
+
+    public void print() {
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[i].length; j++) {
+                String s = board[i][j].toString() + " ";
+                System.out.println(s);
+            }
+            System.out.println("");
+        }
+        System.out.println("Score: " + score);
     }
 }
