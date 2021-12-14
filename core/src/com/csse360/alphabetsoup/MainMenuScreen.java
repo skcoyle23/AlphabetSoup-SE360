@@ -48,11 +48,18 @@ public class MainMenuScreen implements Screen {
         /**
          * Redirecting to the Alphabet Soup initial game screen if "S" is pressed
          */
+        if(Gdx.input.isKeyPressed(Input.Keys.I)) {
+            game.setScreen(new InfoScreen(game));
+            //dispose();
+        }
+
+
         if(Gdx.input.isKeyPressed(Input.Keys.S)) {
             game.setScreen(new GameScreen(game));
             dispose();
         }
     }
+
 
     @Override
     public void resize(int width, int height) {
